@@ -81,8 +81,8 @@ class ChessBoard : IMutable<MutableList<ChessPiece>,Double> {
 
     override fun mutate(parent: MutableList<ChessPiece>): MutableList<ChessPiece> {
         val parentFitness: Double = getFitness(parent)
-        var childFitness = 0.0
-        var child = mutableListOf<ChessPiece>()
+        var childFitness: Double
+        val child = mutableListOf<ChessPiece>()
 
         do {
             child.clear()
@@ -104,8 +104,8 @@ class ChessBoard : IMutable<MutableList<ChessPiece>,Double> {
             .mapIndexed { index, chessPiece -> chessPiece.toString() + if ((index+1) % 8 ==0) "\n" else "\t" }
             .joinToString("")}\nFitness: $bestFitness"
 
-    fun toShortString(): String ="${bestParent
-                    .mapIndexed { index, chessPiece -> (if (chessPiece.value==0) " " else chessPiece.name )+if ((index+1) % 8 == 0) "\n" else "" }
+    private fun toShortString(): String ="${bestParent
+                    .mapIndexed { index, chessPiece -> "${if (chessPiece.value==0) "▢" else chessPiece.toString()}${if ((index+1) % 8 == 0) "\n" else "\t"}" }
                     .joinToString("")
         }\nFitness: ${"%.3f".format(bestFitness)}"
 
