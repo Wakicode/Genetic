@@ -52,7 +52,6 @@ class ChessBoard : IMutable<MutableList<ChessPiece>,Double> {
         bestFitness = getFitness(bestParent)
         var childFitness: Double
         var child: MutableList<ChessPiece>
-        //Display(bestParent, bestFitness)
         var attemps=0
 
         do {
@@ -72,11 +71,11 @@ class ChessBoard : IMutable<MutableList<ChessPiece>,Double> {
     }
 
     override fun createParent(param: Any): MutableList<ChessPiece> {
-        // llena el tablero con las 32 fichas piezas + 32 vacias
+        // llena el tablero con las 32 piezas + 32 vacias
         return geneset.shuffled().toMutableList()
     }
 
-    override fun getFitness(obj: MutableList<ChessPiece>): Double = obj.mapIndexed { index, chessPiece -> if (values[index] == chessPiece.value) 1.0 else 0.0  }.sum() / target
+    override fun getFitness(obj: MutableList<ChessPiece>): Double = obj.mapIndexed { index, chessPiece -> if (values[index] == chessPiece.value) 1.0 else 0.0  }.average()
 
 
     override fun mutate(parent: MutableList<ChessPiece>): MutableList<ChessPiece> {
